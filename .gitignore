@@ -25,3 +25,5 @@ yarn-error.log*
 
 /.vscode
 *.code-workspace
+/frontend/.env
+/frontend/.env.development

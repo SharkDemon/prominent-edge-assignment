@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
 
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import IncidentDisplayComponent from './components/IncidentDisplayComponent';
+
+require('dotenv').config();
 
 function App() {
 

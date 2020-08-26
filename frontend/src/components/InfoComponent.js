@@ -2,10 +2,6 @@ import React from 'react';
 
 class InfoComponent extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     state = {
     };
 
@@ -16,7 +12,6 @@ class InfoComponent extends React.Component {
         const incident = this.props.incident;
         let a = 'None';
         if (incident !== null && incident.address !== undefined) {
-            console.log('incident had address')
             const addressHasLine1 = (incident.address.address_line1 !== undefined);
             const addressHasCity = (incident.address.city !== undefined);
             const addressHasState = (incident.address.state !== undefined);
@@ -44,6 +39,7 @@ class InfoComponent extends React.Component {
             <div>
                 <h2>Incident Information</h2>
                 <p>Location: { this.renderAddress() }</p>
+                <p>Weather: TODO</p>
             </div>
         )
     }    

@@ -28,7 +28,7 @@ class IncidentDisplayComponent extends React.Component {
             errorMessage: ''
         });
         // check if something was entered at all
-        if (0 == this.state.rawJson.trim().length) {
+        if (0 === this.state.rawJson.trim().length) {
             this.setState({
                 errorMessage: 'Come on, please enter raw JSON for incident!'
             })
