@@ -3,8 +3,7 @@ import './App.css';
 
 import { Route, Link, Switch } from 'react-router-dom';
 
-import InfoComponent from './components/InfoComponent';
-import MapComponent from './components/MapComponent';
+import IncidentDisplayComponent from './components/IncidentDisplayComponent';
 
 function App() {
 
@@ -24,10 +23,7 @@ function App() {
                 </div>
                 <div className="panel-grid-container">
                   <div className="panel-grid">
-                    <InfoComponent />
-                  </div>
-                  <div className="panel-grid">
-                    <MapComponent />
+                    <IncidentDisplayComponent />
                   </div>
                 </div>
               </Route>

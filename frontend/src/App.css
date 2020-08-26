@@ -80,7 +80,7 @@ aside {
 /* move this to some component */
 div.panel-grid-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }
 div.panel-grid {
   border: 0px solid rgb(150,150,150);
@@ -111,4 +111,18 @@ img.panel-image {
 div.panel-item h3 {
   margin: 0;
   overflow-wrap: normal;
+}
+
+.collect-data-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.full {
+  width: 600px;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
 }
