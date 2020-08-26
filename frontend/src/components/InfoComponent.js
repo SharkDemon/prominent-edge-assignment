@@ -38,6 +38,7 @@ class InfoComponent extends React.Component {
         return (
             <div>
                 <h2>Incident Information</h2>
+                <p>Date/Time: TODO</p>
                 <p>Location: { this.renderAddress() }</p>
                 <p>Weather: TODO</p>
             </div>

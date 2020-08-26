@@ -6,42 +6,29 @@ import '../components/MapComponent.css';
 
 class MapComponent extends React.Component {
 
-    // const location = {
-    //     address: '1600 Amphitheatre Parkway, Mountain View, california.',
-    //     lat: 37.42216,
-    //     lng: -122.08427,
-    //   }
-
     state = {
-        location: {
-            address: '1600 Amphitheatre Parkway, Mountain View, california.',
-            lat: 37.42216,
-            lng: -122.08427,
-        },
         zoomLevel: 14
     };
 
     componentDidMount() {
-        console.log('mounted');
-        if (this.props.incident === undefined) {
-            console.log('incident undefined');
-        } else if (this.props.incident === null) {
-            console.log('incident null');
-        } else {
-            console.log('lat=' + this.props.incident.address.latitude);
-            console.log('long=' + this.props.incident.address.longitude);
-        }
     }
 
     googleMapsKey = () => {
         return process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     }
 
-    showMap = (location, zoomLevel) => {
-        console.log('entered here, key=' + this.googleMapsKey());
+    noMap = () => {
         return (
-            <div className="map">
-                <h2 className="map-h2">Map</h2>
+            <div className="map-container">
+                <h2>Map</h2>
+            </div>
+        )
+    }
+
+    showMap = (location, zoomLevel) => {
+        return (
+            <div className="map-container">
+                <h2>Map</h2>
                 <div className="google-map">
                     <GoogleMapReact
                         center={location}
@@ -62,8 +49,11 @@ class MapComponent extends React.Component {
     }
 
     render() {
-        console.log('rendered map, location=' + JSON.stringify(this.state.location));
-        return this.showMap(this.state.location, this.state.zoomLevel)
+        if (this.props.incident === undefined || this.props.incident === null) {
+            return this.noMap()
+        } else {
+            return this.showMap({ lat: this.props.incident.address.latitude, lng: this.props.incident.address.longitude }, this.state.zoomLevel)
+        }
     }    
 }
 
