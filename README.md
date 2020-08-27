@@ -33,3 +33,7 @@ Then navigate to http://localhost:3000
 ## Time Spent
 
 - 7.5 hours (2pm - 8pm, 8:30pm - 10pm)
+
+## Screenshot
+
+![Using a sample incident JSON](screenshot-01.png)
