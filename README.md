@@ -29,6 +29,7 @@ Then navigate to http://localhost:3000
 - Add ability to customize which details of the incident display under information
 - Add ability to customize initial zoom level
 - Since incidents aren't just a single "time" but rather represent a series of discrete events, build out a full timeline (event opens, units dispatched, units arrive, event closes)
+- Can create a more elaborate pin in the map that displays high-level incident information, such as type/subtype or the common_place_name.
 
 ## Time Spent
 
