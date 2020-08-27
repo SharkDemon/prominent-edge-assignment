@@ -10,6 +10,7 @@ class IncidentDisplayComponent extends React.Component {
         this.state = {
             rawJson: '',
             incidentJson: null,
+            meteostatJson: null,
             errorMessage: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +23,7 @@ class IncidentDisplayComponent extends React.Component {
         });
     }
 
-    handleShowIncidentClick(event) {
+    async handleShowIncidentClick(event) {
         // first clear the error message
         this.setState({
             errorMessage: ''
@@ -30,22 +31,70 @@ class IncidentDisplayComponent extends React.Component {
         // check if something was entered at all
         if (0 === this.state.rawJson.trim().length) {
             this.setState({
+                rawJson: '',
+                incidentJson: null,
+                meteostatJson: null,
                 errorMessage: 'Come on, please enter raw JSON for incident!'
             })
         } else {
             // try to parse the JSON, show error message if it's invalid
             try {
                 const json = JSON.parse(this.state.rawJson);
-                this.setState({
-                    incidentJson: json
-                });
+                await this.setState({ incidentJson: json });
             }
             catch (e) {
                 this.setState({
+                    rawJson: '',
+                    incidentJson: null,
+                    meteostatJson: null,
                     errorMessage: 'Unable to parse the JSON, please check its validity and try again.'
                 })
+                return;
+            }
+
+            // call meteostat and get weather for date/time
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': this.meteostatKey()
+                }
+            };
+            // perform fetch and receive meteostat data
+            let res;
+            try {
+                res = await fetch(this.buildMeteostatFetchLink(), requestOptions);
+            } catch (ex) {
+                this.setState({ errorMessage: ex.toString() });
+            }
+
+            if (res === undefined) {
+                this.setState({ errorMessage: 'Failed to fetch Meteostat data.  Response undefined' });
+            } else {
+                if (res.status === 200) {
+                    const json = await res.json();
+                    this.setState({ meteostatJson: json });
+                } else {
+                    this.setState({ errorMessage: `Failed to retrieve Meteostat data.  Status code=${res.status}` });
+                }
             }
         }
+    }
+
+    meteostatKey = () => {
+        return process.env.REACT_APP_METEOSTAT_API_KEY;
+    }
+
+    buildMeteostatFetchLink() {
+        let eventOpened = this.state.incidentJson.description.event_opened;
+        let url = `https://cors-anywhere.herokuapp.com/https://api.meteostat.net/v2/point/hourly` +
+            `?lat=${ this.state.incidentJson.address.latitude }` +
+            `&lon=${ this.state.incidentJson.address.longitude }` +
+            `&start=${ eventOpened.substring(0, 10) }` +
+            `&end=${ eventOpened.substring(0, 10) }` +
+            `&tz=${ this.state.incidentJson.fire_department.timezone }`
+        ;
+        return url;
     }
 
     componentDidMount() {
@@ -69,7 +118,7 @@ class IncidentDisplayComponent extends React.Component {
                     <textarea className="full" value={this.state.rawJson} onChange={this.handleChange} />
                     <button onClick={this.handleShowIncidentClick}>Show Incident Details</button>
                 </div>
-                <InfoComponent incident={this.state.incidentJson} />
+                <InfoComponent incidentJson={this.state.incidentJson} meteostatJson={this.state.meteostatJson} />
                 <MapComponent incident={this.state.incidentJson} />
             </div>
         )

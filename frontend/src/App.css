@@ -113,6 +113,13 @@ div.panel-item h3 {
   overflow-wrap: normal;
 }
 
+.collect-data-div,
+.information-div,
+.map-div {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .collect-data-div {
   display: flex;
   flex-direction: column;

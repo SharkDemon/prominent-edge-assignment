@@ -19,7 +19,7 @@ class MapComponent extends React.Component {
 
     noMap = () => {
         return (
-            <div className="map-container">
+            <div className="map-div">
                 <h2>Map</h2>
             </div>
         )
@@ -27,7 +27,7 @@ class MapComponent extends React.Component {
 
     showMap = (location, zoomLevel) => {
         return (
-            <div className="map-container">
+            <div className="map-div">
                 <h2>Map</h2>
                 <div className="google-map">
                     <GoogleMapReact
