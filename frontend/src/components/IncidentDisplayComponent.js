@@ -56,7 +56,6 @@ class IncidentDisplayComponent extends React.Component {
             const requestOptions = {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
                     'x-api-key': this.meteostatKey()
                 }
             };
@@ -87,7 +86,7 @@ class IncidentDisplayComponent extends React.Component {
 
     buildMeteostatFetchLink() {
         let eventOpened = this.state.incidentJson.description.event_opened;
-        let url = `https://cors-anywhere.herokuapp.com/https://api.meteostat.net/v2/point/hourly` +
+        let url = `https://api.meteostat.net/v2/point/hourly` +
             `?lat=${ this.state.incidentJson.address.latitude }` +
             `&lon=${ this.state.incidentJson.address.longitude }` +
             `&start=${ eventOpened.substring(0, 10) }` +
