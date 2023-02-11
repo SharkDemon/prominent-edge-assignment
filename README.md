@@ -1,5 +1,7 @@
 # prominent-edge-assignment
 
+[![HitCount](http://hits.dwyl.com/SharkDemon/prominent-edge-assignment.svg)](http://hits.dwyl.com/SharkDemon/prominent-edge-assignment)
+
 Implemented as a simple React app.
 
 ## Clone and setup the app
